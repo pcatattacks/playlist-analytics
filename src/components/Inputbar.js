@@ -1,37 +1,34 @@
 import React, {Component} from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
+
+import Textfield from './Textfield';
 import style from '../style';
+const axios = require("axios");
+
+
 
 /**
  * The input is used to create the `dataSource`, so the input always matches three entries.
  */
 export default class Inputbar extends Component {
 
-    state = {
-        dataSource: []
+    constructor(props) {
+        super(props);
+        this.state = {
+            playlistData: null,
+        };
+        this.handleButtonClick = this.handleButtonClick.bind(this);
     }
 
-    super(props) {
-        this.handleUpdateInput.bind(this);
+    handleButtonClick = (event) => {
+        // console.log("keypress registered"); // debugging statement
+        var textval = this.TextField.state.value;
+        console.log(textval);
     }
-
-    handleUpdateInput = (value) => {
-        this.setState({
-            dataSource: [value,]
-        });
-    };
-
+    
     render() {
         return (
-          <div style={style.Inputbar}>
-            <AutoComplete
-              hintText="Playlist URL"
-              dataSource={this.state.dataSource}
-              onUpdateInput={this.handleUpdateInput}
-              floatingLabelText="Enter a spotify playlist URL..."
-              fullWidth={true}
-            />
-          </div>
-        );
-    }
+            <div style={style.Inputbar}>
+                <Textfield ref={(ref)=>{this.Textfield = ref;}}/>
+            </div>
+        )};
 }

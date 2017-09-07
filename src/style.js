@@ -1,6 +1,7 @@
 export default {
     Inputbar: {
-        marginLeft: "1.5%",
-        marginRight: "1.5%",
+        margin: "1.5%"
+        // marginLeft: "1.5%",
+        // marginRight: "1.5%",
     }
 }
