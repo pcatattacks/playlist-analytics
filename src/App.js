@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Navbar from './components/Navbar';
-import Inputbar from './components/Inputbar';
+import Controller from './components/Controller';
 
 injectTapEventPlugin();
 
@@ -12,7 +12,7 @@ class App extends Component {
       <MuiThemeProvider>
         <div className="App">
           <Navbar />
-          <Inputbar />
+          <Controller />
         </div>
       </MuiThemeProvider>
     );
