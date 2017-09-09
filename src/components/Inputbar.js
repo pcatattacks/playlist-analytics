@@ -1,34 +1,46 @@
-import React, {Component} from 'react';
+import React from 'react';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
-import Textfield from './Textfield';
-import style from '../style';
-const axios = require("axios");
+const playlistRegex = /\bhttp[s]*:\/\/open.spotify.com\/user\/\w+\/playlist\/\w+/;
 
-
-
-/**
- * The input is used to create the `dataSource`, so the input always matches three entries.
- */
-export default class Inputbar extends Component {
+export default class Inputbar extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            playlistData: null,
+            validURL: true,
+            disableButton: true,
+            value: null
         };
-        this.handleButtonClick = this.handleButtonClick.bind(this);
     }
 
-    handleButtonClick = (event) => {
-        // console.log("keypress registered"); // debugging statement
-        var textval = this.TextField.state.value;
-        console.log(textval);
+    isValidPlaylistURL = (text) => {
+        return playlistRegex.test(text);  // if valid url format
     }
-    
+
+    handleChange = (event, value) => {
+        if ((this.isValidPlaylistURL(value) )) {
+            this.setState({validURL: true, value:value, disableButton: false});
+        } else {
+            this.setState({validURL: false, value:value, disableButton: true});
+        }
+    };
+
     render() {
         return (
-            <div style={style.Inputbar}>
-                <Textfield ref={(ref)=>{this.Textfield = ref;}}/>
-            </div>
-        )};
+        <div>
+            <TextField
+                hintText="Enter Spotify Playlist URL"
+                fullWidth={true}
+                onChange={this.handleChange}
+                errorText={this.state.validURL || this.state.value=== ""? null: "Invalid playlist URL format"}
+            />
+            <br/>
+            <RaisedButton label="Get Analytics" fullWidth={true} secondary={true}
+                disabled={this.state.disableButton}
+                onClick={this.props.onClick} />
+        </div>
+        );
+    }
 }
