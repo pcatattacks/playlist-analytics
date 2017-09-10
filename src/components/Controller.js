@@ -3,6 +3,7 @@ import Inputbar from './Inputbar';
 import Progress from './Progressbar';
 import style from '../style';
 import Data from './Data';
+import Instructions from './Instructions';
 const axios = require("axios");
 // for charting
 
@@ -17,6 +18,7 @@ export default class Controller extends Component {
         super(props);
         this.state = {
             playlistData: null,
+            instructions:<Instructions style={{textAlign:"center", marginTop:"2%"}}/>
         };
         this.handleButtonClick = this.handleButtonClick.bind(this);
     }
@@ -31,7 +33,7 @@ export default class Controller extends Component {
         axios.get('/api/playlist',
             {params: {userID:pathparts[4], playlistID:pathparts[6]}}
         ).then( (response, body) => {
-            this.setState({playlistData: response.data, loading:null})
+            this.setState({playlistData: response.data, loading:null, instructions:null})
             // console.log(this.state.playlistData);
         }).catch( (error) => {
             this.setState({loading:null});
@@ -50,6 +52,7 @@ export default class Controller extends Component {
                         onClick={this.handleButtonClick} />
                 <br/>
                 {this.state.loading}
+                {this.state.instructions}
                 {dataComponent}
             </div>
         )};
