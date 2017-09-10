@@ -14,11 +14,13 @@
     "victory": "^0.21.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start-react": "react-scripts start",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "start-dev": "nf start -p 3000"
+    "start-dev": "nf start -p 3000",
+    "heroku-postbuild": "npm i && npm i --only-dev && npm run build"
   },
   "devDependencies": {
     "foreman": "^2.0.0",

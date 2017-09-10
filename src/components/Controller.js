@@ -28,7 +28,7 @@ export default class Controller extends Component {
         var pathparts = textval.split('/');
         console.log(pathparts); // debugging statement
         // making request to backend
-        axios.get('https://localhost:8000/api/',
+        axios.get('/api/playlist',
             {params: {userID:pathparts[4], playlistID:pathparts[6]}}
         ).then( (response, body) => {
             this.setState({playlistData: response.data, loading:null})

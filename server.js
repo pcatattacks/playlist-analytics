@@ -16,6 +16,8 @@ app.use( function(req, res, next) {
     next();
 });
 
+app.use(express.static('./build/'))
+
 // Some other constants
 let authResponse;
 const base64 = new Buffer(process.env.CLIENT_ID+':'+process.env.CLIENT_SECRET).toString('base64');
@@ -31,8 +33,12 @@ const authConfig = {
     }
 };
 
+app.get('/', (req, res) => {
+    res.sendFile('index.html', {root: __dirname+'/build'});
+});
+
 // api routes
-router.get('/', (req, res)=> {
+router.get('/playlist', (req, res)=> {
     // res.json({'message':"Hello world!"});
     console.log(req.query); // debugging statement
     user_id = req.query.userID;
@@ -164,6 +170,6 @@ router.get('/', (req, res)=> {
 app.use('/api', router);
 
 // start server and listen for requests
-app.listen(port = (8000 || process.env.PORT), () => {
+app.listen(port = (process.env.PORT || 8000), () => {
     console.log(`Node server listening on port ${port}`);
 });
